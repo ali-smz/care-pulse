@@ -12,10 +12,10 @@ export default function Home() {
             width={1000}
             height={1000}
             alt="patient"
-            className="mb-12 h-10 w-fit"
+            className="mb-8 h-8 w-fit"
           />
           <PatientForm />
-          <div className="text-14-regular mt-20 flex justify-between">
+          <div className="text-14-regular mt-9 flex justify-between">
             <p className="xl:text-left justify-items-end text-dark-600">
               © 2024 CarePulse
             </p>
@@ -30,7 +30,7 @@ export default function Home() {
         height={1000}
         width={1000}
         alt="patient"
-        className=" max-w-[50%]"
+        className="side-img max-w-[50%]"
       />
     </div>
   );

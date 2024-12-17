@@ -22,7 +22,8 @@ import { PatientFormValidation } from "@/lib/validation";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "react-phone-number-input/style.css";
-import CustomFormField, { FormFieldType } from "../CustomFormField";
+import CustomFormField from "../CustomFormField";
+import { FormFieldType } from "./PatientForm";
 import { FileUploader } from "../FileUploader";
 import SubmitButton from "../SubmitButton";
 
@@ -62,7 +63,7 @@ const RegisterForm = ({ user }: { user: User }) => {
         userId: user.$id,
         name: values.name,
         email: values.email,
-        phone: values.phone,
+        phoneNum: values.phone,
         birthDate: new Date(values.birthDate),
         gender: values.gender,
         address: values.address,
@@ -112,8 +113,6 @@ const RegisterForm = ({ user }: { user: User }) => {
             <h2 className="sub-header">Personal Information</h2>
           </div>
 
-          {/* NAME */}
-
           <CustomFormField
             fieldType={FormFieldType.INPUT}
             control={form.control}
@@ -123,7 +122,6 @@ const RegisterForm = ({ user }: { user: User }) => {
             iconAlt="user"
           />
 
-          {/* EMAIL & PHONE */}
           <div className="flex flex-col gap-6 xl:flex-row">
             <CustomFormField
               fieldType={FormFieldType.INPUT}
@@ -144,7 +142,7 @@ const RegisterForm = ({ user }: { user: User }) => {
             />
           </div>
 
-          {/* BirthDate & Gender */}
+
           <div className="flex flex-col gap-6 xl:flex-row">
             <CustomFormField
               fieldType={FormFieldType.DATE_PICKER}

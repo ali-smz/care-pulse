@@ -136,12 +136,11 @@ const RegisterForm = ({ user }: { user: User }) => {
             <CustomFormField
               fieldType={FormFieldType.PHONE_INPUT}
               control={form.control}
-              name="phone"
+              name="phoneNum"
               label="Phone Number"
               placeholder="(555) 123-4567"
             />
           </div>
-
 
           <div className="flex flex-col gap-6 xl:flex-row">
             <CustomFormField

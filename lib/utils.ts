@@ -21,6 +21,7 @@ export const formatDateTime = (dateString: Date | string) => {
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   };
 
+  
   const dateDayOptions: Intl.DateTimeFormatOptions = {
     weekday: "short", // abbreviated weekday name (e.g., 'Mon')
     year: "numeric", // numeric year (e.g., '2023')

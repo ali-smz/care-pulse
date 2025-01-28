@@ -75,7 +75,7 @@ const ProfileForm = () => {
         <CustomFormField
           fieldType={FormFieldType.PHONE_INPUT}
           control={form.control}
-          name="phoneNum"
+          name="phone"
           label="Phone number"
           placeholder="(555) 123-456"
         />

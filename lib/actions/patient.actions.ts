@@ -48,6 +48,19 @@ export const getUser = async (userId: string) => {
   }
 };
 
+export const getPatient = async (userId: string) => {
+  try {
+    const patient = await databases.listDocuments(
+      DATABASE_ID!,
+      PATIENT_COLLECTION_ID!,
+      [Query.equal("userId", userId)]
+    );
+    return parseStringify(patient.documents[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const registerPatient = async ({
   identificationDocument,
   ...patient
@@ -75,7 +88,7 @@ export const registerPatient = async ({
         ...patient,
       }
     );
-    
+
     return parseStringify(newPatient);
   } catch (error) {
     console.log(error);

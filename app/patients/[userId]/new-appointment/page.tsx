@@ -1,88 +1,42 @@
-"use client";
+import Image from "next/image";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { z } from "zod";
-import { UserFormValidation } from "@/lib/validation";
-import { useState } from "react";
-import { Form } from "@/components/ui/form";
-import CustomFormField from "@/components/CustomFormField";
-import SubmitButton from "@/components/SubmitButton";
-import { createUser } from "@/lib/actions/patient.actions";
+import AppointmentForm from "@/components/forms/AppointmentForm";
+import { getPatient } from "@/lib/actions/patient.actions";
 
-export enum FormFieldType {
-  INPUT = "input",
-  TEXTAREA = "textarea",
-  SELECT = "select",
-  PHONE_INPUT = "phoneInput",
-  CHECKBOX = "checkbox",
-  SKELETON = "skeleton",
-  DATE_PICKER = "datePicker",
-}
+const Appointment = async ({ params: { userId } }: SearchParamProps) => {
+  const patient = await getPatient(userId);
 
-const ProfileForm = () => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const form = useForm<z.infer<typeof UserFormValidation>>({
-    resolver: zodResolver(UserFormValidation),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-    },
-  });
-
-  async function onSubmit({
-    name,
-    email,
-    phone,
-  }: z.infer<typeof UserFormValidation>) {
-    setIsLoading(true);
-    try {
-      const userData = { name, email, phone };
-      const user = await createUser(userData);
-      if (user) router.push(`/patients/${user.$id}/register`);
-    } catch (error) {
-      console.log(error);
-    }
-  }
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 flex-1">
-        <section className="mb-6 space-y-4">
-          <h1 className="header">Hi There 👋</h1>
-          <p className="text-dark-700">Schedule your first appointment . </p>
-        </section>
-        <CustomFormField
-          fieldType={FormFieldType.INPUT}
-          control={form.control}
-          name="name"
-          label="Full name"
-          placeholder="John Doe"
-          iconSrc="/assets/icons/user.svg"
-          iconAlt="user"
-        />
-        <CustomFormField
-          fieldType={FormFieldType.INPUT}
-          control={form.control}
-          name="email"
-          label="Email"
-          placeholder="example@gmail.com"
-          iconSrc="/assets/icons/email.svg"
-          iconAlt="email"
-        />
-        <CustomFormField
-          fieldType={FormFieldType.PHONE_INPUT}
-          control={form.control}
-          name="phone"
-          label="Phone number"
-          placeholder="(555) 123-456"
-        />
-        <SubmitButton isLoading={isLoading}>Get Started</SubmitButton>
-      </form>
-    </Form>
+    <div className="flex h-screen max-h-screen">
+      <section className="remove-scrollbar container my-auto">
+        <div className="sub-container max-w-[860px] flex-1 justify-between">
+          <Image
+            src="/assets/icons/logo-full.svg"
+            height={1000}
+            width={1000}
+            alt="logo"
+            className="mb-12 h-10 w-fit"
+          />
+
+          <AppointmentForm
+            patientId={patient?.$id}
+            userId={userId}
+            type="create"
+          />
+
+          <p className="copyright mt-8">© 2024 CarePluse</p>
+        </div>
+      </section>
+
+      <Image
+        src="/assets/images/appointment-img.png"
+        height={1500}
+        width={1500}
+        alt="appointment"
+        className="side-img max-w-[390px] bg-bottom"
+      />
+    </div>
   );
 };
 
-export default ProfileForm;
+export default Appointment;
